@@ -1,21 +1,44 @@
+// server.js
+// load the things we need
 var express = require('express');
 var app = express();
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
 
 var oxford = require('project-oxford');
 var client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
-
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('listening on port 3000');
 });
+    
+var parsed_values;
 
 client.emotion.analyzeEmotion({
     path: 'imgtests/donald-trump.png',
 }).then(function (response) {
-    console.log("anger: " + response[0].scores.anger);
-    console.log("contempt: " + response[0].scores.contempt);
-    console.log("disgust: " + response[0].scores.disgust);
+    parsed_values = [
+        {
+            'name': 'anger',
+            'value': response[0].scores.anger
+        },
+        {
+            'name': 'disgust',
+            'value': response[0].scores.disgust
+        },
+        {
+            'name': 'contempt',
+            'value': response[0].scores.contempt
+        }
+    ];
+});
+
+// index page 
+app.get('/', function(req, res) {
+    res.render('pages/index', {
+        parsed_values: parsed_values
+    });
 });
