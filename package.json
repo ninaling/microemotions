@@ -1,0 +1,24 @@
+{
+  "name": "underreaction",
+  "version": "1.0.0",
+  "main": "main.js",
+  "dependencies": {
+    "azure-storage": "^0.10.0",
+    "express": "^4.13.4",
+    "project-oxford": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ninaling/underreaction.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninaling/underreaction/issues"
+  },
+  "homepage": "https://github.com/ninaling/underreaction"
+}
