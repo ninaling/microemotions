@@ -4,8 +4,10 @@
   "main": "main.js",
   "dependencies": {
     "azure-storage": "^0.10.0",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
-    "project-oxford": "^1.1.1"
+    "project-oxford": "^1.1.1",
+    "webcamjs": "^1.0.6"
   },
   "devDependencies": {},
   "scripts": {

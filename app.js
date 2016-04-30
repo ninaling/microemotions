@@ -4,8 +4,10 @@ var app = express();
 var oxford = require('project-oxford');
 var client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
 
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+app.set('view engine', 'ejs');
+
+app.get('/*', function (req, res) {
+  res.render('index');
 });
 
 app.listen(3000, function () {
@@ -19,3 +21,4 @@ client.emotion.analyzeEmotion({
     console.log("contempt: " + response[0].scores.contempt);
     console.log("disgust: " + response[0].scores.disgust);
 });
+
