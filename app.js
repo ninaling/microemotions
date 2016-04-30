@@ -5,7 +5,7 @@ var oxford = require('project-oxford');
 var client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(3000, function () {
