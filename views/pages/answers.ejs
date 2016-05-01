@@ -12,7 +12,10 @@
                 padding-bottom:100px;
                 margin-top:10vh;
             }
-            #reveal{display:none;}
+            .reveal{
+                display:none;
+                margin-top: 50px;
+            }
         </style>
     </head>
     <body>
@@ -28,9 +31,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2 col-md-offset-5" style="margin-top:15px;">
+            <div class="col-md-4 col-md-offset-5" style="margin-top:15px;">
                 <a class="btn btn-default" id="start">Start</a>
-                <a class="btn btn-primary" id="reveal" >Answer</a>
+                <a class="btn btn-primary reveal">Answer</a>
+                <a class="btn btn-primary reveal" href="/eval">Eval</a>
             </div>
         </div>
 
@@ -55,9 +59,9 @@
                 //this.css({display:'block'});
             });
             $("#start").fadeOut();
-            $("#reveal").fadeIn();
+            $(".reveal").fadeIn();
         })
-        $('#reveal').on('click',function(){
+        $('.reveal').on('click',function(){
             var ans=".answer_message:eq("+ansNum+")";
             //scroll down to next question
 
