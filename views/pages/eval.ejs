@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <% include ../partials/head %>
+        <style>
+            body{
+
+            }
+            .wrapper div{
+                position: absolute;
+                background-color: rgba(126, 0, 238, 0.5);
+            }
+            #backgroundpic{
+                padding-left:0px;
+                padding-right:0px;
+                margin-top:0px;
+            }
+            h1{
+                color: white;
+            }
+            h2{
+                font-size: large;
+                color: white;
+            }
+
+        </style>
+
     </head>
     <body>
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class = "center">
+        <img src="http://thespiritscience.net/wp-content/uploads/2015/10/law-of-attraction.jpeg" class="col-md-12" id="backgroundpic">
+    </div>
+    <div class = "wrapper">
+            <div class = "values">
+                <h1>Emotional averages:</h1>
+                    <div class = "values">
+                    <ul>
+                        <% parsed_values.forEach(function(emotion) { %>
+                            <li><%= emotion.name %>: <%= emotion.value %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                    
+                    <h2>Your composite rating:</h2>
+                    <div>
+                        68%
+                    </div>
+            </div>
+    </div>
 
-        
-        
-        <h1>Emotional averages:</h1>
-        <div>
-            <ul>
-                <% parsed_values.forEach(function(emotion) { %>
-                    <li><%= emotion.name %>: <%= emotion.value %></li>
-                <% }); %>
-            </ul>
-        </div>
-        <h2>Your composite rating:</h2>
-        <div>
-            68%
-        </div>
 
     </body>
 
