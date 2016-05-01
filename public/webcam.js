@@ -21,10 +21,10 @@ var Webcam = {
 	params: {
 		width: 0,
 		height: 0,
-		dest_width: 0,         // size of captured image
-		dest_height: 0,        // these default to width/height
+		dest_width: 100,         // size of captured image
+		dest_height: 100,        // these default to width/height
 		image_format: 'jpeg',  // image format (may be jpeg or png)
-		jpeg_quality: 90,      // jpeg image quality from 0 (worst) to 100 (best)
+		jpeg_quality: 80,      // jpeg image quality from 0 (worst) to 100 (best)
 		force_flash: false,    // force flash mode,
 		flip_horiz: false,     // flip image horiz (mirror mode)
 		fps: 30,               // camera frames per second

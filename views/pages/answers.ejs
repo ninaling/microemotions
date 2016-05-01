@@ -2,44 +2,86 @@
 <html>
     <head>
         <% include ../partials/head %>
+        <style>
+            body{background-color:#34495e;}
+            #answers_container{}
+            #wrapper{
+                height:20vh;
+                display:none;
+                overflow:hidden;
+                padding-bottom:100px;
+                margin-top:10vh;
+            }
+            #reveal{display:none;}
+        </style>
     </head>
     <body>
-    <h1 class="text-center">Reveal...</h1>
-    <a class="btn btn-default" id="start">Question</a>
-    <a class="btn btn-primary" id="reveal">Answer</a>
-    <div id="answers_container"></div>
-    <div style="opacity:0; height:20px; overflow:hidden;">
-        <div id="my_camera" style="width:320px; height:240px;"></div>
-        <div id="my_result"></div>
+    <div class="container-fluid" style="background-color:white;">
+            <h1 class="text-center" style="margin:10vh;">Reveal...</h1>
     </div>
+    <div class="container">
+        <div class="row">
+            <div id="wrapper" class="col-md-6 col-md-offset-3">
+                <div id="answers_container"></div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5" style="margin-top:15px;">
+                <a class="btn btn-default" id="start">Start</a>
+                <a class="btn btn-primary" id="reveal" >Answer</a>
+            </div>
+        </div>
+
+        <div style="opacity:0; height:20px; overflow:hidden;">
+            <div id="my_camera" style="width:320px; height:240px;"></div>
+            <div id="my_result"></div>
+        </div>
+    </div>
     <script src="pairing.js"></script>
-    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
-
     <script>
+        var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
+        var f = new Firebase(fRef);
         var ansNum=0;
         var ques=".answer_title:eq("+ansNum+")";
+        var qBox=".answer:eq("+ansNum+")";
         $('#start').on('click',function(){
             ques=".answer_title:eq("+ansNum+")";
+            qBox=".answer:eq("+ansNum+")";
             $(ques).fadeIn();
+            $(qBox).fadeIn();
+            $('#wrapper').fadeIn('slow',function(){
+                //this.css({display:'block'});
+            });
+            $("#start").fadeOut();
+            $("#reveal").fadeIn();
         })
         $('#reveal').on('click',function(){
             var ans=".answer_message:eq("+ansNum+")";
+            //scroll down to next question
+
              $(ans).fadeIn('fast');
+
 
             take_snapshot();
             setTimeout(take_snapshot,1000);
             setTimeout(take_snapshot,1500);
+
+            //Load next question
             ansNum++;
             ques=".answer_title:eq("+ansNum+")";
+            qBox=".answer:eq("+ansNum+")";
             $(ques).fadeIn(2000);
+            $(qBox).fadeIn();
+
+            //scroll to next question
+            setTimeout(function() {
+                scroll(ansNum);
+            },2500);
+
         });
-        var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
-        var f = new Firebase(fRef);
-        if(ansNum>=3){
-            f.orderByKey().startAt("KG").on("q1", function(snapshot) {
-                console.log(snapshot.key());
-            });
+        function scroll(num){
+            $('#wrapper').animate({ scrollTop: 85*num + 'px' }, 500);
         }
     </script>
     </body>
