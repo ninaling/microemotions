@@ -10,9 +10,36 @@ var items=[
     {
         title: "hyphens or underscores as delimiters?",
         message: "underscores, hand down"
+    },
+    {
+        title: "test question 4",
+        message: "test answer 4"
+    },
+    {
+        title: "test question 5",
+        message: "test answer 5"
+    },
+    {
+        title: "test question 6",
+        message: "test answer 6"
+    },
+    {
+        title: "test question 7",
+        message: "test answer 7"
+    },
+    {
+        title: "test question 8",
+        message: "test answer 8"
+    },
+    {
+        title: "test question 9",
+        message: "test answer 9"
+    },
+    {
+        title: "test question 10",
+        message: "test answer 10"
     }
 ];
-var n=items.length;
 
 var Answer=React.createClass({
   render: function(){

@@ -2,10 +2,37 @@
 <html>
     <head>
         <% include ../partials/head %>
+        <style>
+            #answers_container {
+              width: 80vw;
+              margin-left: 10vw;
+              text-align: left;
+            }
+
+            .answer {
+              border-radius: 5px;
+              border: 1px solid lightgrey;
+              padding: 18px;
+              margin-top: 10px;
+            }
+
+            .answer_title {
+              font-family: sans-serif;
+              font-size: 20px;
+                display:none;
+            }
+
+            .answer_message {
+              font-family: sans-serif;
+              font-size: 15px;
+              display:none;
+            }
+        
+        </style>
     </head>
     <body>
     <h1 class="text-center">Reveal...</h1>
-    <a class="btn btn-default" id="start">Question</a>
+    <a class="btn btn-default" id="start" style="margin-left: 10vw">Question</a>
     <a class="btn btn-primary" id="reveal">Answer</a>
     <div id="answers_container"></div>
     <div style="opacity:0; height:20px; overflow:hidden;">
@@ -36,7 +63,7 @@
         });
         var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
         var f = new Firebase(fRef);
-        if(ansNum>=3){
+        if(ansNum>=10){
             f.orderByKey().startAt("KG").on("q1", function(snapshot) {
                 console.log(snapshot.key());
             });
