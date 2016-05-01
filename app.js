@@ -1,103 +1,49 @@
+var setEmotionVals=function(){
+    for (var i=0; i<numImages; i++){
+        client.emotion.analyzeEmotion({
+            path: 'images/ninasfacelel/'+imgUrls[i],
+        }).then(function (response) {
+            console.log(response);
+            
+            anger+=response[0].scores.anger;
+            contempt+=response[0].scores.contempt;
+            disgust+=response[0].scores.disgust;
+            fear+=response[0].scores.fear;
+            happiness+=response[0].scores.happiness;
+            neutral+=response[0].scores.neutral;
+            sadness+=response[0].scores.anger;
+            surprise+=response[0].scores.surprise;
+        });
+    }
+}
 
 // server.js
 // load the things we need
 var express = require('express');
 var app = express();
+
+// set the view engine to ejs
 app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
+
 var oxford = require('project-oxford');
 client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
-var firebase=require('firebase');
-var atob=require('atob');
-var Blob=require('blob');
-app.use(express.static('./public'));
-app.listen(3000, function () {
-  console.log('listening on port 3000');
-});
 
-var numImages=10;
-var imgUrls=[];
-var snapTemp;
+app.use(express.static('./public'));
 
 parsed_values=[];
 var anger=0, contempt=0, disgust=0, fear=0, happiness=0, neutral=0, sadness=0, surprise=0;
 
-var parseValues=function(snapVals){
-    for (var answer in snapVals){
-        for (var image in answer){
-            console.log(image);
-            imgUrls.push(snapVals.answer.image);
-        }
-    }
-}
+app.listen(3000, function () {
+  console.log('listening on port 3000');
+});
 
-var setEmotionVals=function(snapVals){
-    
-    for (var answer in snapVals){
-        for (var image in snapVals[answer]){
-//            console.log(snapVals[answer][image]);
-            console.log("this is an image");
-//            imgUrls.push(snapVals.answer.image);
-            var blob = b64toBlob(snapVals[answer][image], 'application/json');
-            var blobUrl = URL.createObjectURL(blob);
-            console.log(blobUrl);
-            
-            client.emotion.analyzeEmotion({
-                path: blobUrl
-//                path: snapVals[answer][image]
-            }).then(function (response) {
-                console.log(response);
-                anger+=response[0].scores.anger;
-                contempt+=response[0].scores.contempt;
-                disgust+=response[0].scores.disgust;
-                fear+=response[0].scores.fear;
-                happiness+=response[0].scores.happiness;
-                neutral+=response[0].scores.neutral;
-                sadness+=response[0].scores.anger;
-                surprise+=response[0].scores.surprise;
-            });
-        }
-    }
-    
-//    for (var i=0; i<numImages; i++){
-//        client.emotion.analyzeEmotion({
-//            path: 'images/'+imgUrls[i],
-//        }).then(function (response) {
-//            console.log(response);
-//            anger+=response[0].scores.anger;
-//            contempt+=response[0].scores.contempt;
-//            disgust+=response[0].scores.disgust;
-//            fear+=response[0].scores.fear;
-//            happiness+=response[0].scores.happiness;
-//            neutral+=response[0].scores.neutral;
-//            sadness+=response[0].scores.anger;
-//            surprise+=response[0].scores.surprise;
-//        });
-//    }
-}
+var numImages=3;
+//var imgUrls=['donald-trump.png', 'ee6.jpg', 'smile.jpg'];
+var imgUrls=['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg', '21.jpg', '22.jpg', '23.jpg', '24.jpg', '25.jpg', '26.jpg', '27.jpg', '28.jpg', '29.jpg', '30.jpg'];
 
-function b64toBlob(b64Data, contentType, sliceSize) {
-  contentType = contentType || '';
-  sliceSize = sliceSize || 512;
-
-  var byteCharacters = atob(b64Data);
-  var byteArrays = [];
-
-  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-    var byteNumbers = new Array(slice.length);
-    for (var i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-
-    var byteArray = new Uint8Array(byteNumbers);
-
-    byteArrays.push(byteArray);
-  }
-
-  var blob = new Blob(byteArrays, {type: contentType});
-  return blob;
-}
+setEmotionVals();
 
 
 // index page
@@ -117,61 +63,47 @@ app.get('/answers', function(req, res) {
 // evaluation page 
 app.get('/eval', function(req, res) {
     
-    // Get a database reference to our posts
-    var ref = new Firebase("https://radiant-inferno-8183.firebaseio.com/");
-
-    var snapVals;
-    // Attach an asynchronous callback to read the data at our posts reference
-    ref.on("value", function(snapshot) {
-        snapVals=snapshot.val();
-//        console.log(snapVals);
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
-    
-//    parseValues(snapVals);
-    
-//    anger=0, contempt=0, disgust=0, fear=0, happiness=0, neutral=0, sadness=0, surprise=0;
-    setEmotionVals(snapVals);
+    setEmotionVals();
     
     parsed_values = [
         {
             'name': 'anger',
-            'value': anger/30
+            'value': anger/numImages
         },
         {
             'name': 'contempt',
-            'value': contempt/30
+            'value': contempt/numImages
         },
         {
             'name': 'disgust',
-            'value': disgust/30
+            'value': disgust/numImages
         },
         {
             'name': 'fear',
-            'value': fear/30
+            'value': fear/numImages
         },
         {
             'name': 'happiness',
-            'value': happiness/30
+            'value': happiness/numImages
         },
         {
             'name': 'neutral',
-            'value': neutral/30
+            'value': neutral/numImages
         },
         {
             'name': 'sadness',
-            'value': sadness/30
+            'value': sadness/numImages
         },
         {
             'name': 'surprise',
-            'value': surprise/30
+            'value': surprise/numImages
         }
     ];
+    
     
     res.render('pages/eval', {
         parsed_values: parsed_values
     });
+    anger=0, contempt=0, disgust=0, fear=0, happiness=0, neutral=0, sadness=0, surprise=0; 
     
-
 });

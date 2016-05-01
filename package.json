@@ -6,12 +6,18 @@
     "atob": "^2.0.3",
     "azure-storage": "^0.10.0",
     "blob": "0.0.4",
+    "blob-util": "^1.2.1",
+    "body-parser": "^1.15.0",
+    "data-uri-to-blob": "0.0.4",
     "ejs": "^1.0.0",
     "express": "^4.13.4",
     "firebase": "^2.4.2",
+    "http-request": "^0.7.0",
     "project-oxford": "^1.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "window-mock": "0.0.7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

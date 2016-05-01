@@ -21,8 +21,8 @@ var Webcam = {
 	params: {
 		width: 0,
 		height: 0,
-		dest_width: 100,         // size of captured image
-		dest_height: 100,        // these default to width/height
+		dest_width:50,         // size of captured image
+		dest_height:50,        // these default to width/height
 		image_format: 'jpeg',  // image format (may be jpeg or png)
 		jpeg_quality: 80,      // jpeg image quality from 0 (worst) to 100 (best)
 		force_flash: false,    // force flash mode,
