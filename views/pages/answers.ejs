@@ -81,17 +81,9 @@
             },2500);
 
         });
-<<<<<<< HEAD
         function scroll(num){
             $('#wrapper').animate({ scrollTop: 85*num + 'px' }, 500);
-=======
-        var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
-        var f = new Firebase(fRef);
-        if(ansNum>=10){
-            f.orderByKey().startAt("KG").on("q1", function(snapshot) {
-                console.log(snapshot.key());
-            });
->>>>>>> 3f83e64f9bcad33cb75827dcd55fac7199af4b62
+
         }
     </script>
     </body>
