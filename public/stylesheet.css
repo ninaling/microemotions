@@ -1,3 +1,38 @@
+.btn{
+    background-color: #31b0d5;
+    margin:20px;
+}
+
+.btn:hover
+{
+    background-image:none;
+    background-color: #009cd5;
+}
+
+button:active {
+    border:#31b0d5;
+}
+
+
+header .header-content .header-content-inner h1 {
+    color: white;
+}
+
+.landing_below_img {
+    margin: 15px;
+    display: inline;
+    width: 35vw;
+}
+
+@media screen and (max-width: 750px) {
+    .landing_below_img {
+        width: 65vw;   
+    }
+}
+
+/////////////////////////
+
+
 #answers_container {
   width: 80vw;
   margin-left: 10vw;
