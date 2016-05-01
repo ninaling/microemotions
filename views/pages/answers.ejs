@@ -4,11 +4,43 @@
         <% include ../partials/head %>
     </head>
     <body>
-        <div id="answers_container">
-            <div id="my_camera" style="width:320px; height:240px;"></div>
-            <div id="my_result"></div>
-            <script src="pairing.js"></script>
-            <a href="javascript:void(take_snapshot())">Take Snapshot</a>
-        </div>
+    <h1 class="text-center">Reveal...</h1>
+    <a class="btn btn-default" id="start">Question</a>
+    <a class="btn btn-primary" id="reveal">Answer</a>
+    <div id="answers_container"></div>
+    <div style="opacity:0; height:20px; overflow:hidden;">
+        <div id="my_camera" style="width:320px; height:240px;"></div>
+        <div id="my_result"></div>
+    </div>
+
+    <script src="pairing.js"></script>
+    <a href="javascript:void(take_snapshot())">Take Snapshot</a>
+
+    <script>
+        var ansNum=0;
+        var ques=".answer_title:eq("+ansNum+")";
+        $('#start').on('click',function(){
+            ques=".answer_title:eq("+ansNum+")";
+            $(ques).fadeIn();
+        })
+        $('#reveal').on('click',function(){
+            var ans=".answer_message:eq("+ansNum+")";
+             $(ans).fadeIn('fast');
+
+            take_snapshot();
+            setTimeout(take_snapshot,1000);
+            setTimeout(take_snapshot,1500);
+            ansNum++;
+            ques=".answer_title:eq("+ansNum+")";
+            $(ques).fadeIn(2000);
+        });
+        var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
+        var f = new Firebase(fRef);
+        if(ansNum>=3){
+            f.orderByKey().startAt("KG").on("q1", function(snapshot) {
+                console.log(snapshot.key());
+            });
+        }
+    </script>
     </body>
 </html>
