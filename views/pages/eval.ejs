@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body>
+
+        <h1>Emotional averages:</h1>
+        <div>
+            <ul>
+                <% parsed_values.forEach(function(emotion) { %>
+                    <li><%= emotion.name %>: <%= emotion.value %></li>
+                <% }); %>
+            </ul>
+        </div>
+
+    </body>
+
+
+</html>

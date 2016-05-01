@@ -1,31 +1,4 @@
-// server.js
-// load the things we need
-var express = require('express');
-var app = express();
-
-// set the view engine to ejs
-app.set('view engine', 'ejs');
-
-// use res.render to load up an ejs view file
-
-var oxford = require('project-oxford');
-client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
-
-app.listen(3000, function () {
-  console.log('listening on port 3000');
-});
-    
-parsed_values=[];
-var anger=0, contempt=0, disgust=0, fear=0, happiness=0, neutral=0, sadness=0, surprise=0;
-
-
-// index page 
-app.get('/', function(req, res) {
-    
-    var numImages=3;
-    
-    var imgUrls=['donald-trump.png', 'ee6.jpg', 'smile.jpg'];
-    
+var setEmotionVals=function(){
     for (var i=0; i<numImages; i++){
         client.emotion.analyzeEmotion({
             path: 'images/'+imgUrls[i],
@@ -41,7 +14,54 @@ app.get('/', function(req, res) {
             surprise+=response[0].scores.surprise;
         });
     }
-      
+}
+
+// server.js
+// load the things we need
+var express = require('express');
+var app = express();
+
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
+// use res.render to load up an ejs view file
+
+var oxford = require('project-oxford');
+client = new oxford.Client('41106ff66b604242ab632a658b2d2db3');
+
+app.use(express.static('./public'));
+
+parsed_values=[];
+var anger=0, contempt=0, disgust=0, fear=0, happiness=0, neutral=0, sadness=0, surprise=0;
+
+app.listen(3000, function () {
+  console.log('listening on port 3000');
+});
+
+var numImages=3;
+var imgUrls=['donald-trump.png', 'ee6.jpg', 'smile.jpg'];
+
+setEmotionVals();
+
+// index page
+app.get('/', function(req, res) {
+    res.render('pages/index', {
+        
+    });
+});
+
+// answers page
+app.get('/answers', function(req, res) {
+    res.render('pages/answers', {
+        
+    });
+});
+
+// evaluation page 
+app.get('/eval', function(req, res) {
+    
+    setEmotionVals();
+    
     parsed_values = [
         {
             'name': 'anger',
@@ -77,7 +97,7 @@ app.get('/', function(req, res) {
         }
     ];
     
-    res.render('pages/index', {
+    res.render('pages/eval', {
         parsed_values: parsed_values
     });
     

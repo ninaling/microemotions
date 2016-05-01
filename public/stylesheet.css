@@ -1,0 +1,26 @@
+#answers_container {
+  width: 80vw;
+  margin-left: 10vw;
+  text-align: left;
+}
+
+.answer {
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 18px;
+  margin: 10px;
+}
+
+.answer_title {
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.answer_message {
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+#eval_container {
+    
+}
