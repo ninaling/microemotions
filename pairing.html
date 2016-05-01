@@ -5,6 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
         <!--Bootstrap-->
         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="pairing.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <!-- Latest compiled and minified JavaScript -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -13,51 +14,13 @@
         <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
         <script src="webcamjs/webcam.js"></script>
         <script src="sha256.js"></script>
+
     </head>
 
     <body>
-        <style>
-            body {
-                font-family: sans-serif;
-            }
-
-            .hidden {
-                display: none;
-            }
-
-            .pano {
-                height: 85%;
-                max-height: 85%;
-            }
-
-            #spin {
-                height: 60px;
-            }
-        </style>
         <div id="my_camera" style="width:320px; height:240px;"></div>
         <div id="my_result"></div>
-        <script language="JavaScript">
-            var fRef = 'https://radiant-inferno-8183.firebaseio.com/';
-            var f = new Firebase(fRef);
-            f.set({
-               survey:{
-                   q1:{},
-                   q2:{},
-                   q3:{}
-               }
-            });
-            Webcam.attach( '#my_camera' );
-            function take_snapshot() {
-                Webcam.snap( function(data_uri) {
-                    document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-                    f.update({
-                     survey:{
-                         q1:{data_uri}
-                     }
-                    });
-                } );
-            }
-        </script>
+        <script src="pairing.js"></script>
         <a href="javascript:void(take_snapshot())">Take Snapshot</a>
 
     </body>
